@@ -25,9 +25,10 @@ const HeaderComponent = () => {
             placeholder="input search text"
             size="large"
             textButton="Tìm kiếm"
+            bordered="none"
           />
         </Col>
-        <Col span={6} style={{ display: "flex", gap: "20px" }}>
+        <Col span={6} style={{ display: "flex", gap: "20px", alignItems:"center" }}>
           <WrapperAccountHeader>
             <UserOutlined style={{ fontSize: "30px" }} />
             <div>

@@ -3,21 +3,37 @@ import { Button, Input } from "antd";
 import React from "react";
 
 const ButtonInputSearch = (props) => {
-  const { size, placeholder, textButton } = props;
+  const {
+    size,
+    placeholder,
+    textButton,
+    bordered,
+    backgroundColorInput = "#fff",
+    backgroundColorButton = "rgb(13,92,182)",
+    colorButton = "#fff",
+  } = props;
   return (
-    <div style={{ display: "flex", backgroundColor: "#fff" }}>
+    <div style={{ display: "flex" }}>
       <Input
         size={size}
         placeholder={placeholder}
-        bordered={false}
-        style={{ backgroundColor: "#fff" }}
+        style={{
+          backgroundColor: backgroundColorInput,
+          border: bordered,
+          borderRadius: "0px",
+        }}
       />
       <Button
         size={size}
-        icon={<SearchOutlined bordered={false} />}
-        style={{ backgroundColor: "#fff",borderRadius:"0px" }}
+        icon={<SearchOutlined />}
+        style={{
+          backgroundColor: backgroundColorButton,
+          color: colorButton,
+          border: "none",
+          borderRadius: "0px",
+        }}
       >
-        {textButton}
+        <span style={{ color: colorButton }}>{textButton}</span>
       </Button>
     </div>
   );
