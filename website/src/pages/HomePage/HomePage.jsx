@@ -6,6 +6,7 @@ import slider2 from "../../assets/images/slider2.webp";
 import slider3 from "../../assets/images/slider3.webp";
 import slider4 from "../../assets/images/slider4.webp";
 import CardComponent from "../../components/CardComponent/CardComponent";
+import NavbarComponent from "../../components/NavbarComponent/NavbarComponent";
 const HomePage = () => {
   const arr = ["TV", "Tủ lạnh", "Laptop"];
 
@@ -38,6 +39,7 @@ const HomePage = () => {
         >
           <CardComponent />
         </div>
+        <NavbarComponent/>
       </div>
     </>
   );
