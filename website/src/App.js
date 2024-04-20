@@ -1,11 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import OrderPage from "./pages/OrderPage/OrderPage";
-import HomePage from "./pages/HomePage/HomePage";
 import { routes } from "./routes";
-import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import { Fragment } from "react";
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 export function App() {
   return (
     <div>

@@ -14,29 +14,38 @@ import {
 import ButtonInputSearch from "../ButtonInputSearch/ButtonInputSearch";
 const HeaderComponent = () => {
   return (
-    <div>
+    <div
+      style={{
+        width: "100%",
+        background: "rgb(26,148,255)",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <WrapperHeader>
-        <Col span={6}>
+        <Col span={5}>
           <WrapperTextHeader>AKHOA-MTHU</WrapperTextHeader>
         </Col>
-        <Col span={12}>
+        <Col span={13}>
           <ButtonInputSearch
             placeholder="input search text"
             size="large"
             textButton="Tìm kiếm"
-            bordered="none"
+            bordered={false}
           />
         </Col>
         <Col
           span={6}
-          style={{ display: "flex", gap: "20px", alignItems: "center" }}
+          style={{ display: "flex", gap: "54px", alignItems: "center" }}
         >
           <WrapperAccountHeader>
             <UserOutlined style={{ fontSize: "30px" }} />
             <div>
               <WrapperTextHeaderSmall>Đăng nhập/Đăng ký</WrapperTextHeaderSmall>
               <div>
-                <span style={{ fontSize: "12px" }}>Tài khoản</span>
+                <WrapperTextHeaderSmall >
+                  Tài khoản
+                </WrapperTextHeaderSmall>
                 <CaretDownOutlined />
               </div>
             </div>

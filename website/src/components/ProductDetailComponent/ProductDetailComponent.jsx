@@ -30,8 +30,11 @@ const ProductDetailComponent = () => {
   ];
   const onChange = () => {};
   return (
-    <Row style={{ padding: "16px", background: "#fff" }}>
-      <Col span={10}>
+    <Row style={{ padding: "16px", background: "#fff", borderRadius: "4px" }}>
+      <Col
+        span={10}
+        style={{ borderRight: "1px solid #e5e5e5", paddingRight: "8px" }}
+      >
         <Image src={IPhone13_Image} alt="Image product" preview={false} />
         <Row style={{ paddingTop: "10px", justifyContent: "space-between" }}>
           {imageSmall.map((image) => {
@@ -47,7 +50,7 @@ const ProductDetailComponent = () => {
           })}
         </Row>
       </Col>
-      <Col span={14}>
+      <Col span={14} style={{ paddingLeft: "10px" }}>
         <WrapperStyleNameProduct>Apple iPhone 13</WrapperStyleNameProduct>
         <div>
           <StarFilled style={{ fontSize: "12px", color: "yellow" }} />
@@ -65,8 +68,15 @@ const ProductDetailComponent = () => {
           <span className="address">Q. 1, P. Bến Nghé, Hồ Chí Minh</span> -
           <span className="change-address"> Đổi địa chỉ</span>
         </WrapperAddressProduct>
-        <div>
-          <div>Số lượng</div>
+        <div
+          style={{
+            margin: "10px 0 20px",
+            borderTop: "1px solid #e5e5e5",
+            borderBottom: "1px solid #e5e5e5",
+            padding: "10px 0",
+          }}
+        >
+          <div style={{ marginBottom: "10px" }}>Số lượng</div>
           <WrapperQualityProduct>
             <button style={{ border: "none", background: "transparent" }}>
               <MinusOutlined style={{ color: "#000", fontSize: "20px" }} />

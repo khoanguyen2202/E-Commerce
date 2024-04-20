@@ -25,7 +25,7 @@ const CardComponent = () => {
         />
       }
     >
-      <WrapperImageStyle src={chinh_hang} alt="chinh hang"/>
+      <WrapperImageStyle src={chinh_hang} alt="chinh hang" />
       <StyleNameProduct>Iphone</StyleNameProduct>
       <WrapperReportText>
         <span style={{ marginRight: "4px" }}>
@@ -35,7 +35,8 @@ const CardComponent = () => {
         <WrapperStyleTextSell> | Đã bán 1000+</WrapperStyleTextSell>
       </WrapperReportText>
       <WrapperPriceText>
-        1.000.000đ <WrapperDiscountText> -5%</WrapperDiscountText>
+        <span style={{ marginRight: "8px" }}>1.000.000đ</span>
+        <WrapperDiscountText> -5%</WrapperDiscountText>
       </WrapperPriceText>
     </WrapperCardStyle>
   );
