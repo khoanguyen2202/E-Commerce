@@ -1,6 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
+const routes = require("./routes");
+const bodyParser = require("body-parser");
+
 dotenv.config();
 
 const app = express();
@@ -10,10 +13,12 @@ app.get("/", (req, res) => {
   res.send("Hello world AKHOA-MTHU");
 });
 
+app.use(bodyParser.json());
+
+routes(app);
+
 mongoose
-  .connect(
-    `mongodb+srv://khoa:${process.env.MONGO_DB_PASSWORD}@cluster0.uin9rsv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-  )
+  .connect(`${process.env.MONGO_DB}`)
   .then(() => {
     console.log("Connect DB success");
   })
