@@ -1,4 +1,7 @@
 const User = require("../models/UserModel");
+const bcrypt = require("bcrypt");
+const { generalAcessToken, generalRefreshToken } = require("./JwtService");
+
 const createUser = (newUser) => {
   return new Promise(async (resolve, reject) => {
     const { name, email, password, confirmPassword, phone } = newUser;
@@ -13,11 +16,12 @@ const createUser = (newUser) => {
           message: "The email is already exist.",
         });
       }
+      const hash = bcrypt.hashSync(password, 10);
+      console.log(hash);
       const createdUser = await User.create({
         name,
         email,
-        password,
-        confirmPassword,
+        password: hash,
         phone,
       });
       if (createdUser) {
@@ -33,6 +37,49 @@ const createUser = (newUser) => {
   });
 };
 
+const loginUser = (userLogin) => {
+  return new Promise(async (resolve, reject) => {
+    const { name, email, password, confirmPassword, phone } = userLogin;
+    try {
+      const checkUser = await User.findOne({
+        email: email,
+      });
+
+      if (checkUser === null) {
+        resolve({
+          status: "OK",
+          message: "The user is not defined.",
+        });
+      }
+      const comparePassword = bcrypt.compareSync(password, checkUser.password);
+      if (!comparePassword) {
+        resolve({
+          status: "OK",
+          message: "The Password is incorrect.",
+        });
+      }
+      const accessToken = await generalAcessToken({
+        id: checkUser._id,
+        isAdmin: checkUser.isAdmin,
+      });
+
+      const refreshToken = await generalRefreshToken({
+        id: checkUser._id,
+        isAdmin: checkUser.isAdmin,
+      });
+      resolve({
+        status: "OK",
+        message: "SUCCESS.",
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createUser,
+  loginUser,
 };
