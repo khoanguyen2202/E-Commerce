@@ -1,3 +1,4 @@
+const { response } = require("express");
 const UserService = require("../services/UserService");
 
 const createUser = async (req, res) => {
@@ -62,7 +63,26 @@ const loginUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const data = req.body;
+    if (!userId) {
+      return res.status(200).json({
+        status: "Error",
+        message: "The userId is required.",
+      });
+    }
+    console.log("userId", userId);
+    const response = await UserService.updateUser(userId, data);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(404).json({ message: error });
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
+  updateUser,
 };

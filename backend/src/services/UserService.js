@@ -58,6 +58,7 @@ const loginUser = (userLogin) => {
           message: "The Password is incorrect.",
         });
       }
+
       const accessToken = await generalAcessToken({
         id: checkUser._id,
         isAdmin: checkUser.isAdmin,
@@ -67,6 +68,51 @@ const loginUser = (userLogin) => {
         id: checkUser._id,
         isAdmin: checkUser.isAdmin,
       });
+
+      resolve({
+        status: "OK",
+        message: "SUCCESS.",
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const updateUser = (id,data) => {
+  return new Promise(async (resolve, reject) => {
+    const { name, email, password, confirmPassword, phone } = userLogin;
+    try {
+      const checkUser = await User.findOne({
+        email: email,
+      });
+
+      if (checkUser === null) {
+        resolve({
+          status: "OK",
+          message: "The user is not defined.",
+        });
+      }
+      const comparePassword = bcrypt.compareSync(password, checkUser.password);
+      if (!comparePassword) {
+        resolve({
+          status: "OK",
+          message: "The Password is incorrect.",
+        });
+      }
+
+      const accessToken = await generalAcessToken({
+        id: checkUser._id,
+        isAdmin: checkUser.isAdmin,
+      });
+
+      const refreshToken = await generalRefreshToken({
+        id: checkUser._id,
+        isAdmin: checkUser.isAdmin,
+      });
+
       resolve({
         status: "OK",
         message: "SUCCESS.",
@@ -82,4 +128,5 @@ const loginUser = (userLogin) => {
 module.exports = {
   createUser,
   loginUser,
+  updateUser,
 };
