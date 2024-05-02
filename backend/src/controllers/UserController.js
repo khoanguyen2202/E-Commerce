@@ -63,6 +63,22 @@ const loginUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    if (!userId) {
+      return res.status(200).json({
+        status: "Error",
+        message: "The userId is required.",
+      });
+    }
+    const response = await UserService.deleteUser(userId);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(404).json({ message: error });
+  }
+};
+
 const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -80,8 +96,36 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getAllUser = async (req, res) => {
+  try {
+    const response = await UserService.getAllUser();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(404).json({ message: error });
+  }
+};
+
+const getDetailUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    if (!userId) {
+      return res.status(200).json({
+        status: "Error",
+        message: "The userId is required.",
+      });
+    }
+    const response = await UserService.getDetailUser(userId);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(404).json({ message: error });
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
   updateUser,
+  deleteUser,
+  getAllUser,
+  getDetailUser,
 };

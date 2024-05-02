@@ -108,8 +108,74 @@ const updateUser = (id, data) => {
   });
 };
 
+const deleteUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const checkUser = await User.findOne({ _id: id });
+
+      if (checkUser === null) {
+        resolve({
+          status: "OK",
+          message: "The user is not defined.",
+        });
+      }
+
+      const deletedUser = await User.findByIdAndDelete(id);
+
+      resolve({
+        status: "OK",
+        message: "Delete user success.",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getAllUser = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const allUsers = await User.find();
+
+      resolve({
+        status: "OK",
+        message: "SUCCESS.",
+        data: allUsers,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getDetailUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await User.findOne({ _id: id });
+
+      if (user === null) {
+        resolve({
+          status: "OK",
+          message: "The user is not defined.",
+        });
+      }
+
+      resolve({
+        status: "OK",
+        message: "SUCCESS.",
+        data: user,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createUser,
   loginUser,
   updateUser,
+  deleteUser,
+  getAllUser,
+  getDetailUser,
 };
