@@ -1,5 +1,6 @@
 const { response } = require("express");
 const UserService = require("../services/UserService");
+const JwtService = require("../services/JwtService");
 
 const createUser = async (req, res) => {
   try {
@@ -121,6 +122,22 @@ const getDetailUser = async (req, res) => {
   }
 };
 
+const refreshToken = async (req, res) => {
+  try {
+    const token = req.headers.token.split(" ")[1];
+    if (!token) {
+      return res.status(200).json({
+        status: "Error",
+        message: "The token is required.",
+      });
+    }
+    const response = await JwtService.refreshTokenJwtService(token);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(404).json({ message: error });
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
@@ -128,4 +145,5 @@ module.exports = {
   deleteUser,
   getAllUser,
   getDetailUser,
+  refreshToken,
 };
