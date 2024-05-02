@@ -81,13 +81,11 @@ const loginUser = (userLogin) => {
   });
 };
 
-const updateUser = (id,data) => {
+const updateUser = (id, data) => {
   return new Promise(async (resolve, reject) => {
-    const { name, email, password, confirmPassword, phone } = userLogin;
     try {
-      const checkUser = await User.findOne({
-        email: email,
-      });
+      const checkUser = await User.findOne({ _id: id });
+      console.log("checkUser", checkUser);
 
       if (checkUser === null) {
         resolve({
@@ -95,29 +93,14 @@ const updateUser = (id,data) => {
           message: "The user is not defined.",
         });
       }
-      const comparePassword = bcrypt.compareSync(password, checkUser.password);
-      if (!comparePassword) {
-        resolve({
-          status: "OK",
-          message: "The Password is incorrect.",
-        });
-      }
 
-      const accessToken = await generalAcessToken({
-        id: checkUser._id,
-        isAdmin: checkUser.isAdmin,
-      });
-
-      const refreshToken = await generalRefreshToken({
-        id: checkUser._id,
-        isAdmin: checkUser.isAdmin,
-      });
+      const updatedUser = await User.findByIdAndUpdate(id, data, { new: true });
+      console.log("updatedUser", updatedUser);
 
       resolve({
         status: "OK",
         message: "SUCCESS.",
-        access_token: accessToken,
-        refresh_token: refreshToken,
+        data: updatedUser,
       });
     } catch (error) {
       reject(error);
